@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImgHub - 多平台免费图片上传服务</title>
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cloud-upload-alt"></i> ImgHub</h1>
+            <p>一站式多平台免费图片上传服务</p>
+        </header>
+
+        <div class="main-content">
+            <div class="preview-sidebar" id="preview-sidebar">
+                <h3>图片预览</h3>
+                <p class="preview-tip">点击选择图片，再次点击取消</p>
+                <div class="preview-container" id="preview-container">
+                    <div class="empty-preview">
+                        <i class="fas fa-images fa-2x"></i>
+                        <p>添加图片后将显示预览</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload-area-container">
+                <div class="upload-container">
+                    <div class="api-selector">
+                        <label for="api-select">选择上传接口：</label>
+                        <select id="api-select">
+                            <option value="alibaba" selected>阿里巴巴</option>
+                            <option value="jingdong">京东</option>
+                            <option value="netease">网易严选</option>
+                            <option value="tc58">58同城</option>
+                            <option value="qh360">奇虎360</option>
+                            <option value="yidianzixun">一点资讯</option>
+                            <option value="huaban">花瓣网</option>
+                            <option value="sohu">搜狐网</option>
+                            <option value="tcl">TCL集团</option>
+                            <option value="huilian">中科汇联</option>
+                            <option value="aippt">AiPPT</option>
+                            <option value="qiantu">千图网</option>
+                            <option value="psbc">中国邮政</option>
+                            <option value="bankcomm">交通银行</option>
+                            <option value="cbern">智慧教育</option>
+                            <option value="xiaoice">召唤小冰</option>
+                            <option value="chaoxing">超星数字</option>
+                        </select>
+                    </div>
+
+                    <div id="upload-file" class="upload-area active">
+                        <form id="file-form">
+                            <div class="drop-area" id="drop-area">
+                                <i class="fas fa-file-image fa-3x"></i>
+                                <p>拖放文件到这里 或 <label for="file-input">选择文件</label></p>
+                                <input type="file" id="file-input" accept="image/*" multiple hidden>
+                            </div>
+                            <div id="selected-files" class="selected-files"></div>
+                            <button type="submit" id="upload-file-btn" class="upload-btn" disabled>
+                                <i class="fas fa-upload"></i> 上传图片
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="url-results-container" id="url-results-container">
+                    <div class="url-tabs">
+                        <button class="url-tab active" data-target="url-panel">URL</button>
+                        <button class="url-tab" data-target="html-panel">HTML</button>
+                        <button class="url-tab" data-target="md-panel">Markdown</button>
+                    </div>
+                    <div class="url-panels">
+                        <div id="url-panel" class="url-panel active">
+                            <textarea id="url-content" readonly placeholder="显示选中的图片URL（默认全部）"></textarea>
+                            <button class="copy-all-btn" data-clipboard-target="#url-content">
+                                <i class="fas fa-copy"></i> 复制全部
+                            </button>
+                        </div>
+                        <div id="html-panel" class="url-panel">
+                            <textarea id="html-content" readonly placeholder="显示选中的HTML代码（默认全部）"></textarea>
+                            <button class="copy-all-btn" data-clipboard-target="#html-content">
+                                <i class="fas fa-copy"></i> 复制全部
+                            </button>
+                        </div>
+                        <div id="md-panel" class="url-panel">
+                            <textarea id="md-content" readonly placeholder="显示选中的Markdown代码（默认全部）"></textarea>
+                            <button class="copy-all-btn" data-clipboard-target="#md-content">
+                                <i class="fas fa-copy"></i> 复制全部
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>正在上传中，请稍候...</p>
+            <div id="upload-progress">
+                <span id="upload-count">0</span>/<span id="total-count">0</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 ImgHub - 多平台图片上传服务</p>
+        </footer>
+    </div>
+
+    <script src="https://s4.zstatic.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
