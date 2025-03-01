@@ -1,6 +1,7 @@
-# ImgHub - 多平台免费图片上传服务
-
-![ImgHub Logo](logo.svg)
+<div style="text-align: center;">
+  <h1>ImgHub - 多平台免费图片上传服务</h1>
+  <img src="logo.svg" alt="ImgHub Logo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+</div>
 
 ImgHub 是一个一站式多平台免费图片上传服务工具，让你轻松上传图片到多个免费图床。
 
