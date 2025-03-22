@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="100" src="logo.svg" alt="ImgHub logo" />
+  <img width="100" src="assets/images/logo.svg" alt="ImgHub logo" />
 </p>
 
 <p align="center"><b>ImgHub</b> 多平台免费图片上传服务。</p>
