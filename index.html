@@ -4,11 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImgHub - 多平台免费图片上传服务</title>
-    <link rel="icon" href="logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="assets/images/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
+    <a href="https://github.com/aizhiqian/ImgHub" target="_blank" rel="noopener noreferrer" class="github-corner" aria-label="在GitHub上查看源码">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:var(--primary-color); color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+        </svg>
+    </a>
+
+    <div class="page-loader" id="page-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <div class="top-actions" id="top-actions">
+        <button class="top-action-btn theme-btn" id="theme-switch" title="切换主题模式">
+            <i class="fas fa-moon"></i> <span class="btn-text">切换主题</span>
+        </button>
+        <button class="top-action-btn history-btn" id="history-switch" title="查看上传历史">
+            <i class="fas fa-history"></i> <span class="btn-text">上传历史</span>
+        </button>
+        <button class="top-action-btn stats-btn" id="stats-switch" title="查看数据统计">
+            <i class="fas fa-chart-bar"></i> <span class="btn-text">数据统计</span>
+        </button>
+    </div>
+
+    <div id="stats-panel" class="stats-panel">
+        <div class="stats-header">
+            <h3>数据统计</h3>
+            <button id="close-stats" class="close-stats">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="stats-content">
+            <div class="stats-summary">
+                <div class="stats-card">
+                    <div class="stats-icon"><i class="fas fa-upload"></i></div>
+                    <div class="stats-data">
+                        <span id="total-uploads">0</span>
+                        <span class="stats-label">总上传数</span>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-icon"><i class="fas fa-file-image"></i></div>
+                    <div class="stats-data">
+                        <span id="today-uploads">0</span>
+                        <span class="stats-label">今日上传</span>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-icon"><i class="fas fa-database"></i></div>
+                    <div class="stats-data">
+                        <span id="total-size">0 KB</span>
+                        <span class="stats-label">总流量</span>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-details">
+                <div class="stats-chart-container">
+                    <h4>上传平台分布</h4>
+                    <div id="platform-chart" class="stats-chart"></div>
+                </div>
+                <div class="stats-chart-container">
+                    <h4>每日上传数量</h4>
+                    <div id="daily-chart" class="stats-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="stats-overlay" class="stats-overlay"></div>
+
     <div class="container">
         <header>
             <h1><i class="fas fa-cloud-upload-alt"></i> ImgHub</h1>
@@ -105,12 +174,42 @@
             </div>
         </div>
 
+        <div id="history-panel" class="history-panel">
+            <div class="history-header">
+                <h3>上传历史</h3>
+                <button id="close-history" class="close-history">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="history-content">
+                <div id="history-items" class="history-items">
+                </div>
+                <div class="history-empty" id="history-empty">
+                    <i class="fas fa-history fa-2x"></i>
+                    <p>暂无上传历史</p>
+                </div>
+            </div>
+            <div class="history-footer">
+                <button id="clear-history" class="clear-history">清空历史记录</button>
+            </div>
+        </div>
+        <div id="history-overlay" class="history-overlay"></div>
+
         <footer>
             <p>© 2025 ImgHub - 多平台图片上传服务</p>
         </footer>
     </div>
 
     <script src="https://s4.zstatic.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('page-loader');
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+            }, 300);
+        });
+    </script>
 </body>
 </html>

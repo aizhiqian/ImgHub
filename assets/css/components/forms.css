@@ -1,0 +1,56 @@
+/* 表单样式 */
+
+.api-selector {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.api-selector label {
+    margin-right: 10px;
+    font-weight: 500;
+    color: #555;
+}
+
+.api-selector select {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+    flex: 1;
+}
+
+.api-selector select:hover,
+.api-selector select:focus {
+    border-color: var(--primary-color);
+}
+
+.url-panel textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    resize: none;
+    margin-bottom: 10px;
+    font-family: monospace;
+    font-size: 14px;
+    color: #555;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.url-panel textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-focus);
+}
+
+.url-panel textarea::placeholder {
+    color: #aaa;
+}

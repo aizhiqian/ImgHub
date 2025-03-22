@@ -1,0 +1,210 @@
+/* 主题切换器样式 */
+
+.theme-switcher-panel {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    background-color: var(--card-background);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 15px;
+    z-index: 99;
+    border: 1px solid var(--border-light);
+    width: 250px;
+    transition: transform 0.3s, opacity 0.3s;
+    transform-origin: top right;
+    transform: scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.theme-switcher-panel.active {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.theme-switcher-title {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.theme-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.theme-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.theme-option:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.theme-option.active::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--success-color);
+    font-size: 12px;
+}
+
+.theme-color {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid transparent;
+    transition: transform 0.2s;
+}
+
+.theme-option:hover .theme-color {
+    transform: scale(1.1);
+}
+
+.theme-option.active .theme-color {
+    border-color: var(--success-color);
+}
+
+.theme-color-red {
+    background: linear-gradient(135deg, #e33333, #ff7675);
+}
+
+.theme-color-blue {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.theme-color-green {
+    background: linear-gradient(135deg, #10b981, #34d399);
+}
+
+.theme-color-purple {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
+
+.theme-color-orange {
+    background: linear-gradient(135deg, #f59e0b, #fca5a5);
+}
+
+.theme-color-pink {
+    background: linear-gradient(135deg, #ec4899, #f472b6);
+}
+
+.theme-name {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.mode-switch {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-light);
+}
+
+.mode-toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+.mode-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.mode-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.mode-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .mode-slider {
+    background-color: var(--primary-color);
+}
+
+input:focus + .mode-slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .mode-slider:before {
+    transform: translateX(24px);
+}
+
+.mode-label {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* 暗黑模式样式 */
+.dark-mode .theme-switcher-panel {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+.dark-mode .theme-switcher-title {
+    color: #e0e0e0;
+    border-bottom-color: #333;
+}
+
+.dark-mode .theme-option:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .theme-name {
+    color: #b0b0b0;
+}
+
+.dark-mode .mode-toggle {
+    background-color: #444;
+}
+
+.dark-mode .mode-label {
+    color: #b0b0b0;
+}
+
+.dark-mode .mode-switch {
+    border-top-color: #333;
+}

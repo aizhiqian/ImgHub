@@ -1,0 +1,76 @@
+/* 标签页样式 */
+
+.url-results-container {
+    background-color: var(--card-background);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border-light);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.url-results-container:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}
+
+.url-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 15px;
+    gap: 5px;
+}
+
+.url-tab {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    position: relative;
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+    transition: all 0.2s ease;
+    margin-right: 3px;
+}
+
+.url-tab:hover:not(.active) {
+    background: rgba(0, 0, 0, 0.03);
+    color: #555;
+}
+
+.url-tab.active {
+    color: var(--primary-color);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+    background: #fff;
+    z-index: 1;
+}
+
+.url-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+    animation: tab-underline 0.3s ease-in-out;
+}
+
+.url-panels {
+    position: relative;
+}
+
+.url-panel {
+    display: none;
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.url-panel.active {
+    display: block;
+}

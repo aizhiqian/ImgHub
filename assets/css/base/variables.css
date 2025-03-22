@@ -1,0 +1,91 @@
+/* CSS变量定义 */
+
+:root {
+    /* 主题颜色 - 现在提供多种配色方案 */
+    --primary-color: #e33333;
+    --primary-hover: #cc2c2c;
+    --primary-focus: rgba(227, 51, 51, 0.25);
+
+    /* 替代主题颜色 - 可通过JS切换 */
+    --theme-blue: #3b82f6;
+    --theme-blue-hover: #2563eb;
+    --theme-blue-focus: rgba(59, 130, 246, 0.25);
+
+    --theme-green: #10b981;
+    --theme-green-hover: #059669;
+    --theme-green-focus: rgba(16, 185, 129, 0.25);
+
+    --theme-purple: #8b5cf6;
+    --theme-purple-hover: #7c3aed;
+    --theme-purple-focus: rgba(139, 92, 246, 0.25);
+
+    --theme-orange: #f97316;
+    --theme-orange-hover: #ea580c;
+    --theme-orange-focus: rgba(249, 115, 22, 0.25);
+
+    --theme-pink: #ec4899;
+    --theme-pink-hover: #be185d;
+    --theme-pink-focus: rgba(236, 72, 153, 0.25);
+
+    /* 成功颜色 */
+    --success-color: #4caf50;
+    --success-hover: #45a049;
+
+    /* 错误颜色 */
+    --error-color: #f44336;
+    --error-hover: #d32f2f;
+
+    /* 警告颜色 */
+    --warning-color: #ff9800;
+    --warning-hover: #f57c00;
+
+    /* 基础颜色 */
+    --text-primary: #333;
+    --text-secondary: #666;
+    --text-muted: #888;
+    --background-main: #f5f5f5;
+    --card-background: #fff;
+    --border-light: #eee;
+    --border-medium: #ddd;
+
+    /* 渐变效果 */
+    --gradient-primary: linear-gradient(135deg, var(--primary-color), #ff7675);
+    --gradient-blue: linear-gradient(135deg, var(--theme-blue), #60a5fa);
+    --gradient-green: linear-gradient(135deg, var(--theme-green), #34d399);
+    --gradient-purple: linear-gradient(135deg, var(--theme-purple), #a78bfa);
+    --gradient-orange: linear-gradient(135deg, var(--theme-orange), #fdba74);
+    --gradient-pink: linear-gradient(135deg, var(--theme-pink), #f472b6);
+
+    /* 阴影样式 - 更丰富的层次感 */
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.1);
+    --shadow-focus: 0 0 0 3px var(--primary-focus);
+    --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    /* 立体感阴影 */
+    --shadow-3d: 0 2px 0 #cc2c2c;
+    --shadow-3d-blue: 0 2px 0 #2563eb;
+    --shadow-3d-green: 0 2px 0 #059669;
+    --shadow-3d-purple: 0 2px 0 #7c3aed;
+    --shadow-3d-orange: 0 2px 0 #ea580c;
+    --shadow-3d-pink: 0 2px 0 #be185d;
+
+    /* 圆角样式 */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 20px;
+    --radius-full: 9999px;
+
+    /* 过渡效果 */
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-fast: all 0.2s ease;
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+
+    /* 布局 */
+    --container-width: 1100px;
+    --content-padding: 20px;
+    --section-spacing: 30px;
+}

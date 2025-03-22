@@ -1,0 +1,61 @@
+/* 基础重置样式和通用样式 */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: var(--transition);
+}
+
+button, input, select, textarea {
+    transition: var(--transition-fast);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 滚动条样式 */
+.preview-container::-webkit-scrollbar,
+.preview-sidebar::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.selected-files::-webkit-scrollbar,
+.url-panel textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+.preview-container::-webkit-scrollbar-track,
+.preview-sidebar::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.selected-files::-webkit-scrollbar-track,
+.url-panel textarea::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.preview-container::-webkit-scrollbar-thumb,
+.preview-sidebar::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.selected-files::-webkit-scrollbar-thumb,
+.url-panel textarea::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+    transition: background-color 0.3s;
+}
+
+.preview-container::-webkit-scrollbar-thumb:hover,
+.preview-sidebar::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover,
+.selected-files::-webkit-scrollbar-thumb:hover,
+.url-panel textarea::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
