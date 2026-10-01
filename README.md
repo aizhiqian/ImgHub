@@ -54,6 +54,8 @@ ImgHub 是一个一站式多平台免费图片上传服务工具，让你轻松�
 
 ### 极狐 GitLab 上传规则
 
+- 群组、项目都要设置为公开访问
+- 创建 [个人访问令牌](https://jihulab.com/-/user_settings/personal_access_tokens)，勾选 `api`、`write_repository`
 - 上传前依次请求 GitLab 的用户、项目和分支接口，确认令牌可用且目标可访问。
 - 图片将以 Base64 形式通过 Repository Files API 提交到配置的分支。
 - 文件路径、提交消息及 `{year}`、`{month}`、`{fileName}`、`{hash16}`、`{hash32}` 等变量；哈希值按脚本规则基于 Base64 内容计算。

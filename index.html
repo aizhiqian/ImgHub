@@ -270,13 +270,20 @@
         <div id="history-overlay" class="history-overlay"></div>
 
         <footer>
-            <p>© 2025 ImgHub - 多平台图片上传服务</p>
+            <p id="copyright" ></p>
         </footer>
     </div>
 
     <script src="https://s4.zstatic.net/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
     <script type="module" src="assets/js/main.js"></script>
     <script>
+        const copyright = document.getElementById('copyright');
+        const startYear = 2025;
+        const currentYear = new Date().getFullYear();
+        const copyrightYears = currentYear > startYear ? `${startYear}-${currentYear}` : startYear;
+
+        copyright.textContent = `© ${copyrightYears} ImgHub - 多平台图片上传服务`;
+
         window.addEventListener('load', function() {
             setTimeout(function() {
                 const loader = document.getElementById('page-loader');
