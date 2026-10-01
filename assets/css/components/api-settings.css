@@ -1,0 +1,360 @@
+/* 接口配置弹窗 */
+.api-settings-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    transition: opacity 0.3s ease;
+}
+
+.api-settings-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    display: none;
+    width: min(940px, 92vw);
+    max-height: 88vh;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    animation: panel-fade-in 0.3s forwards;
+}
+
+.api-settings-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.api-settings-header h3,
+.api-settings-header p {
+    margin: 0;
+}
+
+.api-settings-header h3 {
+    color: #333;
+}
+
+.api-settings-header p {
+    margin-top: 5px;
+    color: #777;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.close-api-settings {
+    flex: 0 0 auto;
+    border: none;
+    padding: 5px;
+    background: transparent;
+    color: #999;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.close-api-settings:hover {
+    color: var(--primary-color);
+}
+
+.api-settings-content {
+    overflow-y: auto;
+    padding: 20px 22px 24px;
+}
+
+.api-config-section + .api-config-section {
+    margin-top: 24px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.section-heading h4 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.section-heading h4 i {
+    margin-right: 6px;
+    color: #e24329;
+}
+
+.section-heading > span {
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+    background: rgba(74, 107, 223, 0.12);
+    color: #3f5fc7;
+    font-size: 12px;
+}
+
+.direct-api-configs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.direct-api-card {
+    padding: 14px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    background: #fafafa;
+}
+
+.direct-api-card h5 {
+    margin: 0 0 10px;
+    color: #333;
+    font-size: 14px;
+}
+
+.direct-api-card label,
+.config-field > span {
+    display: block;
+    margin-bottom: 6px;
+    color: #555;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.direct-api-card input,
+.config-field input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 9px 10px;
+    border: 1px solid #d7d7d7;
+    border-radius: var(--radius-sm);
+    background: #fff;
+    color: #333;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.direct-api-card input {
+    color: #666;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.config-field input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-focus);
+}
+
+.config-help {
+    margin: 0 0 14px;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.config-help code,
+.config-checkbox code {
+    padding: 1px 4px;
+    border-radius: 3px;
+    background: #f0f0f0;
+    color: #555;
+}
+
+.config-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.config-field-wide {
+    grid-column: 1 / -1;
+}
+
+.config-field small {
+    display: block;
+    margin-top: 5px;
+    color: #888;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.config-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    color: #555;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.config-checkbox input {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--primary-color);
+}
+
+.gitlab-auth-status {
+    margin-top: 16px;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: #f6f6f6;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.gitlab-auth-status.pending {
+    background: #fff8e6;
+    color: #9a6a00;
+}
+
+.gitlab-auth-status.success {
+    background: #edf9f0;
+    color: #26733a;
+}
+
+.gitlab-auth-status.error {
+    background: #fff0f0;
+    color: #b42e2e;
+}
+
+.config-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.config-action-btn {
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 9px 13px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.config-action-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+.config-action-btn:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.config-verify-btn {
+    background: #4a6bdf;
+}
+
+.config-save-btn {
+    background: var(--success-color);
+}
+
+.config-reset-btn {
+    background: #747474;
+}
+
+.dark-mode .api-settings-panel {
+    background: #2d2d2d;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .api-settings-header {
+    border-bottom-color: #444;
+}
+
+.dark-mode .api-settings-header h3,
+.dark-mode .section-heading h4,
+.dark-mode .direct-api-card h5 {
+    color: #e0e0e0;
+}
+
+.dark-mode .api-settings-header p,
+.dark-mode .config-help,
+.dark-mode .config-field small {
+    color: #b0b0b0;
+}
+
+.dark-mode .direct-api-card {
+    border-color: #494949;
+    background: #3d3d3d;
+}
+
+.dark-mode .direct-api-card label,
+.dark-mode .config-field > span,
+.dark-mode .config-checkbox {
+    color: #d0d0d0;
+}
+
+.dark-mode .direct-api-card input,
+.dark-mode .config-field input {
+    border-color: #575757;
+    background: #292929;
+    color: #e0e0e0;
+}
+
+.dark-mode .direct-api-card input {
+    color: #c6c6c6;
+}
+
+.dark-mode .config-help code,
+.dark-mode .config-checkbox code {
+    background: #222;
+    color: #d0d0d0;
+}
+
+.dark-mode .gitlab-auth-status {
+    background: #383838;
+    color: #c7c7c7;
+}
+
+.dark-mode .gitlab-auth-status.pending {
+    background: #50441f;
+    color: #ffe197;
+}
+
+.dark-mode .gitlab-auth-status.success {
+    background: #24452d;
+    color: #b9efc6;
+}
+
+.dark-mode .gitlab-auth-status.error {
+    background: #542d2d;
+    color: #ffc1c1;
+}
+
+@media (max-width: 680px) {
+    .api-settings-panel {
+        width: 95vw;
+        max-height: 92vh;
+    }
+
+    .api-settings-header,
+    .api-settings-content {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .config-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .config-field-wide {
+        grid-column: auto;
+    }
+}

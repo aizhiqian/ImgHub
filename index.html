@@ -32,6 +32,9 @@
         <button class="top-action-btn stats-btn" id="stats-switch" title="查看数据统计">
             <i class="fas fa-chart-bar"></i> <span class="btn-text">数据统计</span>
         </button>
+        <button class="top-action-btn api-settings-btn" id="api-settings-switch" title="查看和编辑接口配置">
+            <i class="fas fa-sliders"></i> <span class="btn-text">接口配置</span>
+        </button>
     </div>
 
     <div id="stats-panel" class="stats-panel">
@@ -79,6 +82,89 @@
     </div>
     <div id="stats-overlay" class="stats-overlay"></div>
 
+    <div id="api-settings-panel" class="api-settings-panel" role="dialog" aria-modal="true" aria-labelledby="api-settings-title">
+        <div class="api-settings-header">
+            <div>
+                <h3 id="api-settings-title">接口配置</h3>
+                <p>所有配置项均按明文显示；修改后的配置仅保存在当前浏览器的 LocalStorage 中。</p>
+            </div>
+            <button id="close-api-settings" class="close-api-settings" type="button" aria-label="关闭接口配置">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="api-settings-content">
+            <section class="api-config-section" aria-labelledby="direct-api-title">
+                <div class="section-heading">
+                    <h4 id="direct-api-title">已集成的直连图床</h4>
+                    <span>只读</span>
+                </div>
+                <div id="direct-api-configs" class="direct-api-configs"></div>
+            </section>
+
+            <section class="api-config-section gitlab-config-section" aria-labelledby="gitlab-config-title">
+                <div class="section-heading">
+                    <h4 id="gitlab-config-title"><i class="fab fa-gitlab"></i> 极狐 GitLab</h4>
+                    <span>可编辑</span>
+                </div>
+                <p class="config-help">上传前会校验访问令牌、项目和分支。个人访问令牌需要拥有 <code>api</code> 权限；浏览器会直接请求极狐 GitLab API。</p>
+                <form id="gitlab-config-form" novalidate>
+                    <div class="config-grid">
+                        <label class="config-field" for="gitlab-url">
+                            <span>GitLab 地址</span>
+                            <input id="gitlab-url" name="gitlabUrl" type="url" inputmode="url" required>
+                        </label>
+                        <label class="config-field" for="gitlab-project-id">
+                            <span>项目 ID</span>
+                            <input id="gitlab-project-id" name="projectId" type="text" required>
+                        </label>
+                        <label class="config-field" for="gitlab-branch">
+                            <span>分支名称</span>
+                            <input id="gitlab-branch" name="branch" type="text" required>
+                        </label>
+                        <label class="config-field" for="gitlab-token">
+                            <span>访问令牌</span>
+                            <input id="gitlab-token" name="token" type="text" autocomplete="off" spellcheck="false" required>
+                        </label>
+                        <label class="config-field" for="gitlab-author-email">
+                            <span>作者邮箱（可选）</span>
+                            <input id="gitlab-author-email" name="authorEmail" type="email">
+                        </label>
+                        <label class="config-field" for="gitlab-author-name">
+                            <span>作者名称（可选）</span>
+                            <input id="gitlab-author-name" name="authorName" type="text">
+                        </label>
+                        <label class="config-field config-field-wide" for="gitlab-file-path-format">
+                            <span>文件路径格式</span>
+                            <input id="gitlab-file-path-format" name="filePathFormat" type="text" spellcheck="false" required>
+                            <small>支持：{year}、{month}、{day}、{hour}、{minute}、{second}、{fileName}、{hash16}、{hash32}</small>
+                        </label>
+                        <label class="config-field config-field-wide" for="gitlab-commit-message">
+                            <span>提交消息格式</span>
+                            <input id="gitlab-commit-message" name="commitMessage" type="text" required>
+                        </label>
+                    </div>
+                    <label class="config-checkbox" for="gitlab-version-under-13">
+                        <input id="gitlab-version-under-13" name="gitlabVersionUnder13" type="checkbox">
+                        <span>GitLab 版本低于 13.0（高于 13.0 原图地址使用 <code>-/raw/</code> 路径）</span>
+                    </label>
+                    <div id="gitlab-auth-status" class="gitlab-auth-status" role="status" aria-live="polite">尚未验证当前配置。</div>
+                    <div class="config-actions">
+                        <button id="verify-gitlab-config" class="config-action-btn config-verify-btn" type="button">
+                            <i class="fas fa-shield-halved"></i> 验证当前配置
+                        </button>
+                        <button class="config-action-btn config-save-btn" type="submit">
+                            <i class="fas fa-save"></i> 保存并验证鉴权
+                        </button>
+                        <button id="reset-gitlab-config" class="config-action-btn config-reset-btn" type="button">
+                            恢复脚本默认值
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+    <div id="api-settings-overlay" class="api-settings-overlay"></div>
+
     <div class="container">
         <header>
             <h1><i class="fas fa-cloud-upload-alt"></i> ImgHub</h1>
@@ -102,7 +188,8 @@
                     <div class="api-selector">
                         <label for="api-select">选择上传接口：</label>
                         <select id="api-select">
-                            <option value="360" selected>360</option>
+                            <option value="gitlab" selected>极狐 GitLab</option>
+                            <option value="360">360</option>
                             <option value="sogo">搜狗</option>
                             <option value="psbc">中国邮政</option>
                         </select>

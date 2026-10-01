@@ -250,6 +250,14 @@
     background-color: #3f5fc7;
 }
 
+.api-settings-btn {
+    background-color: #7d58bf;
+}
+
+.api-settings-btn:hover {
+    background-color: #6947a7;
+}
+
 /* 清空历史按钮 */
 .clear-history {
     background-color: var(--primary-color);

@@ -28,7 +28,16 @@ export function registerElements() {
         statsSwitch: document.getElementById('stats-switch'),
         statsPanel: document.getElementById('stats-panel'),
         statsOverlay: document.getElementById('stats-overlay'),
-        closeStats: document.getElementById('close-stats')
+        closeStats: document.getElementById('close-stats'),
+        apiSettingsSwitch: document.getElementById('api-settings-switch'),
+        apiSettingsPanel: document.getElementById('api-settings-panel'),
+        apiSettingsOverlay: document.getElementById('api-settings-overlay'),
+        closeApiSettings: document.getElementById('close-api-settings'),
+        directApiConfigs: document.getElementById('direct-api-configs'),
+        gitLabConfigForm: document.getElementById('gitlab-config-form'),
+        gitLabAuthStatus: document.getElementById('gitlab-auth-status'),
+        verifyGitLabConfig: document.getElementById('verify-gitlab-config'),
+        resetGitLabConfig: document.getElementById('reset-gitlab-config')
     };
 
     // 存储元素引用到全局app对象中

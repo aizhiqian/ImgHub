@@ -1,7 +1,23 @@
+import { uploadToGitLab, verifyGitLabConfiguration } from './gitlab.js';
+
+export {
+    getGitLabConfig,
+    resetGitLabConfig,
+    saveGitLabConfig,
+    verifyGitLabConfiguration
+} from './gitlab.js';
+
 /**
- * API配置对象，包含各上传接口的配置信息
+ * API配置对象，包含各上传接口的配置信息。
  */
 export const apiConfigs = {
+    gitlab: {
+        name: '极狐 GitLab',
+        requiresAuthentication: true,
+        sequential: true,
+        authenticate: verifyGitLabConfiguration,
+        upload: uploadToGitLab
+    },
     360: {
         name: '360',
         url: 'https://api.xinyew.cn/api/360tc',
@@ -60,6 +76,12 @@ export const apiConfigs = {
         }
     }
 };
+
+export function getDirectApiConfigs() {
+    return Object.entries(apiConfigs)
+        .filter(([, config]) => config.url)
+        .map(([id, config]) => ({ id, name: config.name, url: config.url }));
+}
 
 /**
  * 获取当前选择的API配置

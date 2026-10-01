@@ -9,6 +9,7 @@ import { initResults } from './features/results.js';
 import { setupNotifications } from './ui/notifications.js';
 import { registerElements } from './utils/dom.js';
 import { initStatistics } from './features/statistics.js';
+import { initApiSettings } from './features/api-settings.js';
 
 // 页面加载后执行
 document.addEventListener('DOMContentLoaded', function() {
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initHistory();
     initResults();
     initStatistics();
+    initApiSettings();
 
     // 监听页面粘贴事件
     document.addEventListener('paste', handlePaste);

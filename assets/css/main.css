@@ -16,6 +16,7 @@
 @import 'components/loading.css';
 @import 'components/loader.css';
 @import 'components/statistics.css';
+@import 'components/api-settings.css';
 
 /* 主题样式 */
 @import 'themes/light.css';

@@ -1,6 +1,5 @@
 import { getCurrentApi } from './api-config.js';
 import { saveToHistory } from '../utils/storage.js';
-import { showNotification } from '../utils/helpers.js';
 
 /**
  * 上传单个图片
@@ -8,8 +7,15 @@ import { showNotification } from '../utils/helpers.js';
  * @param {Object} api - API配置对象
  * @returns {Promise} 上传结果的Promise
  */
-export function uploadSingleImage(file, api) {
+export function uploadSingleImage(file, api, authentication) {
     return new Promise((resolve, reject) => {
+        if (api.upload) {
+            api.upload(file, authentication)
+                .then(processedResponse => finalizeUpload(processedResponse, file, resolve, reject))
+                .catch(reject);
+            return;
+        }
+
         const formData = new FormData();
         formData.append('file', file);
 
@@ -21,30 +27,31 @@ export function uploadSingleImage(file, api) {
         .then(data => {
             const processedResponse = api.processResponse(data);
 
-            if (processedResponse.success) {
-                // 如果API响应中没有文件名，则使用原始文件名
-                if (!processedResponse.fileName) {
-                    processedResponse.fileName = file.name;
-                }
-
-                // 添加到历史记录
-                saveToHistory(processedResponse, window.app.elements.apiSelect.value);
-
-                // 记录统计数据
-                if (window.app.modules.statistics) {
-                    window.app.modules.statistics.recordUpload({
-                        fileSize: file.size,
-                        apiId: window.app.elements.apiSelect.value
-                    });
-                }
-
-                resolve(processedResponse);
-            } else {
-                reject(new Error(processedResponse.message || '上传失败'));
-            }
+            finalizeUpload(processedResponse, file, resolve, reject);
         })
         .catch(error => reject(error));
     });
+}
+
+function finalizeUpload(processedResponse, file, resolve, reject) {
+    if (processedResponse.success) {
+        if (!processedResponse.fileName) {
+            processedResponse.fileName = file.name;
+        }
+
+        saveToHistory(processedResponse, window.app.elements.apiSelect.value);
+
+        if (window.app.modules.statistics) {
+            window.app.modules.statistics.recordUpload({
+                fileSize: file.size,
+                apiId: window.app.elements.apiSelect.value
+            });
+        }
+
+        resolve(processedResponse);
+    } else {
+        reject(new Error(processedResponse.message || '上传失败'));
+    }
 }
 
 /**
@@ -53,14 +60,24 @@ export function uploadSingleImage(file, api) {
  */
 export async function uploadMultipleImages(files) {
     const { elements } = window.app;
+    const api = getCurrentApi();
+    let authentication;
+
+    if (api.requiresAuthentication) {
+        try {
+            elements.uploadFileBtn.disabled = true;
+            authentication = await api.authenticate();
+        } catch (error) {
+            alert(`极狐 GitLab 鉴权失败：${error.message}`);
+            elements.uploadFileBtn.disabled = false;
+            return;
+        }
+    }
 
     showLoading(files.length);
 
     // 重置选中的预览索引为空数组
     window.app.selectedPreviewIndices = [];
-
-    // 获取当前选择的API
-    const api = getCurrentApi();
 
     // 重置计数器
     let successCount = 0;
@@ -70,11 +87,11 @@ export async function uploadMultipleImages(files) {
     const results = [];
     window.app.allUploadResults = []; // 重置上传结果
 
-    // 逐个上传图片，但不等待每个上传完成再开始下一个
-    const uploadPromises = files.map(async (file, index) => {
+    // 统一处理单个文件的上传结果。
+    const uploadFile = async (file, index) => {
         try {
-            const result = await uploadSingleImage(file, api);
-            results.push({ file, result, success: true });
+            const result = await uploadSingleImage(file, api, authentication);
+            results[index] = { file, result, success: true };
 
             // 添加到全局上传结果集合
             window.app.allUploadResults.push({
@@ -87,13 +104,19 @@ export async function uploadMultipleImages(files) {
             elements.uploadCount.textContent = successCount;
             return result;
         } catch (error) {
-            results.push({ file, error: error.message, success: false });
+            results[index] = { file, error: error.message, success: false };
             return null;
         }
-    });
+    };
 
-    // 等待所有上传完成
-    await Promise.all(uploadPromises);
+    // GitLab Repository Files API 会为每个文件创建一次提交；串行提交可避免同一分支并发更新冲突。
+    if (api.sequential) {
+        for (let index = 0; index < files.length; index++) {
+            await uploadFile(files[index], index);
+        }
+    } else {
+        await Promise.all(files.map(uploadFile));
+    }
 
     // 所有上传完成后，显示结果
     hideLoading();
